@@ -6,7 +6,14 @@ public:
     virtual ~Command() = default;
 };
 
-class NoopCommand : public Command {
+class NopCommand : public Command {
 };
+
+class AccCommand : public Command {
+};
+
+class JmpCommand : public Command {
+};
+
 
 #endif // CODE_KATA_COMMAND_HPP
