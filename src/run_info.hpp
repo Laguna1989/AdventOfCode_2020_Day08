@@ -6,8 +6,8 @@
 #define CODE_KATA_RUN_INFO_HPP
 
 struct RunInfo {
-    int const value;
-    int const line;
+    int value;
+    int line;
 };
 
 #endif // CODE_KATA_RUN_INFO_HPP
