@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-std::shared_ptr<Command> parseSingleCommand(std::string input);
-std::vector<std::shared_ptr<Command>> parseCommands(std::string input);
+std::shared_ptr<Command> parseSingleCommand(std::string const& input);
+std::vector<std::shared_ptr<Command>> parseCommands(std::string const& input);
 
 #endif // CODE_KATA_PARSER_HPP

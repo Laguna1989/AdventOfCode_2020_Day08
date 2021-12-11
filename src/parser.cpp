@@ -2,7 +2,7 @@
 #include "strutils.hpp"
 #include <memory>
 
-std::shared_ptr<Command> parseSingleCommand(std::string input)
+std::shared_ptr<Command> parseSingleCommand(std::string const& input)
 {
     auto const split = strutil::split(input, " ");
 
@@ -18,7 +18,7 @@ std::shared_ptr<Command> parseSingleCommand(std::string input)
 }
 
 
-std::vector<std::shared_ptr<Command>> parseCommands(std::string input)
+std::vector<std::shared_ptr<Command>> parseCommands(std::string const& input)
 {
     std::vector<std::shared_ptr<Command>> commands{};
 

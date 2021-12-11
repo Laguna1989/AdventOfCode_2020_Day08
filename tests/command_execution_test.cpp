@@ -18,3 +18,19 @@ TEST(ExecutionTests, NopExecutionIncreasesLineByOne)
     auto updatedInfo = command.execute(info);
     ASSERT_EQ(updatedInfo.line, info.line + 1);
 }
+
+TEST(ExecutionTests, JmpExecutionDoesNotChangeValue)
+{
+    RunInfo info { 0, 0 };
+    JmpCommand command(1);
+    auto updatedInfo = command.execute(info);
+    ASSERT_EQ(info.value, updatedInfo.value);
+}
+
+TEST(ExecutionTests, JmpExecutionChangesLineByAppropriateAmount)
+{
+    RunInfo info { 0, 0 };
+    JmpCommand command(0);
+    auto updatedInfo = command.execute(info);
+    ASSERT_EQ(updatedInfo.line, info.line );
+}
