@@ -1,4 +1,5 @@
 #include "parser.hpp"
+#include "run_info.hpp"
 #include <gtest/gtest.h>
 #include <memory>
 
@@ -13,7 +14,6 @@ jmp -6)";
 
     EXPECT_EQ(commands.size(), 3);
 }
-
 
 TEST(ParserTest, ParseSingleLineNopReturnsCorrectCommand)
 {

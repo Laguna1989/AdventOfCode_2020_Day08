@@ -1,6 +1,7 @@
 #ifndef CODE_KATA_COMMAND_HPP
 #define CODE_KATA_COMMAND_HPP
 
+#include "run_info.hpp"
 class Command {
 public:
     explicit Command(int value);
@@ -15,6 +16,7 @@ private:
 class NopCommand : public Command {
 public:
     explicit NopCommand(int value);
+    RunInfo execute(RunInfo const& info);
 };
 
 class AccCommand : public Command {
