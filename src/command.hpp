@@ -4,6 +4,8 @@
 class Command {
 public:
     virtual ~Command() = default;
+
+    int value() { return 0; }
 };
 
 class NopCommand : public Command {
