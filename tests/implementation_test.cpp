@@ -4,6 +4,17 @@
 
 using namespace ::testing;
 
+TEST(ParserTest, ParseMultipleLinesReturnsCorrectCommands)
+{
+    std::string input = R"(nop +0
+acc +99
+jmp -6)";
+    auto commands = parseCommands(input);
+
+    EXPECT_EQ(commands.size(), 3);
+}
+
+
 TEST(ParserTest, ParseSingleLineNopReturnsCorrectCommand)
 {
     std::string input = "nop +0";

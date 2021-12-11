@@ -16,3 +16,17 @@ std::shared_ptr<Command> parseSingleCommand(std::string input)
         throw std::invalid_argument { "invalid input" };
     }
 }
+
+
+std::vector<std::shared_ptr<Command>> parseCommands(std::string input)
+{
+    std::vector<std::shared_ptr<Command>> commands{};
+
+    auto command_strings = strutil::split(input, "\n");
+    for( auto &c: command_strings )
+    {
+        commands.emplace_back(parseSingleCommand(c));
+    }
+
+    return commands;
+}
