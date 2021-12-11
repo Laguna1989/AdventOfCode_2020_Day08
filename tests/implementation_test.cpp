@@ -1,34 +1,8 @@
-#include "command.hpp"
-#include "strutils.hpp"
+#include "parser.hpp"
 #include <gtest/gtest.h>
 #include <memory>
-#include <string>
-#include <typeinfo>
-#include <stdexcept>
 
 using namespace ::testing;
-
-std::shared_ptr<Command> parseSingleCommand(std::string input)
-{
-    if(strutil::starts_with(input, "nop"))
-    {
-        return std::make_shared<NopCommand>();
-    }
-    else  if(strutil::starts_with(input, "jmp"))
-    {
-        return std::make_shared<JmpCommand>();
-    }
-    else  if(strutil::starts_with(input, "acc"))
-    {
-        return std::make_shared<AccCommand>();
-    }
-    else
-    {
-        throw std::invalid_argument{"invalid input"};
-    }
-
-}
-
 
 TEST(ParserTest, ParseSingleLineNopReturnsCorrectCommand)
 {
@@ -37,9 +11,8 @@ TEST(ParserTest, ParseSingleLineNopReturnsCorrectCommand)
     EXPECT_NE(nullptr, dynamic_cast<NopCommand*>(command.get()));
 }
 
-class ParserParameterizedTestFixture : public ::testing::TestWithParam<std::pair<std::string, int>>
-{
-
+class ParserParameterizedTestFixture
+    : public ::testing::TestWithParam<std::pair<std::string, int>> {
 };
 
 TEST_P(ParserParameterizedTestFixture, ParseSingleLineNopReturnsCorrectCommandArgumentParameterized)
@@ -50,15 +23,8 @@ TEST_P(ParserParameterizedTestFixture, ParseSingleLineNopReturnsCorrectCommandAr
 }
 
 INSTANTIATE_TEST_SUITE_P(ParserParameterizedTest, ParserParameterizedTestFixture,
-    ::testing::Values(std::make_pair("nop +0", 0)));
-
-TEST(ParserTest, ParseSingleLineNopReturnsCorrectCommandArgument)
-{
-    std::string input = "nop +0";
-    auto command = parseSingleCommand(input);
-    EXPECT_EQ(command->value(), 0);
-}
-
+    ::testing::Values(
+        std::make_pair("nop +0", 0), std::make_pair("acc +3", 3), std::make_pair("jmp -4", -4)));
 
 TEST(ParserTest, ParseSingleLineAccReturnsCorrectCommand)
 {
