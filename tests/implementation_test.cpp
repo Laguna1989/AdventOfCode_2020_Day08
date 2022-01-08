@@ -1,8 +1,8 @@
 #include "parser.hpp"
 #include "run_info.hpp"
+#include "value_calculation.hpp"
 #include <gtest/gtest.h>
 #include <memory>
-#include "value_calculation.hpp"
 
 using namespace ::testing;
 
@@ -61,21 +61,13 @@ class InfiniteLoopParameterizedTestFixture
 TEST_P(InfiniteLoopParameterizedTestFixture, IsInfiniteLoopDetectedCorrectly)
 {
     std::string input = GetParam().first;
-    auto command = parseSingleCommand(input);
-    auto result = isInfiniteLoop({command});
+    auto commands = parseCommands(input);
+    auto result = isInfiniteLoop(commands);
     EXPECT_EQ(result, GetParam().second);
 }
 
-INSTANTIATE_TEST_SUITE_P(InfiniteLoopDetectionParameterizedTestFixture, InfiniteLoopParameterizedTestFixture,
-    ::testing::Values(
-        std::make_pair("jmp +0", true))
-);
-
-
-TEST(ValueCalculation, IsInfiniteLoopReturnsCorrectValue) {
-    std::string input = "jmp +0";
-    auto command = parseSingleCommand(input);
-
-    auto result = isInfiniteLoop({command});
-    ASSERT_TRUE(result);
-}
+INSTANTIATE_TEST_SUITE_P(InfiniteLoopDetectionParameterizedTestFixture,
+    InfiniteLoopParameterizedTestFixture,
+    ::testing::Values(std::make_pair("jmp +0", true), std::make_pair("nop +0\njmp -1", true),
+        std::make_pair("nop +0\nacc +1\njmp -2", true), std::make_pair("nop +0", false),
+        std::make_pair("jmp +2\nnop +1\nacc +1", false)));

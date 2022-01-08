@@ -33,6 +33,9 @@ bool isInfiniteLoop(std::vector<std::shared_ptr<Command>> const& commands)
         if (visitedLines.count(state.line)) {
             return true;
         }
+        if (state.line >= commands.size()) {
+            return false;
+        }
     }
 
     return false;
@@ -40,14 +43,17 @@ bool isInfiniteLoop(std::vector<std::shared_ptr<Command>> const& commands)
 
 int bruteForceSwap(std::vector<std::shared_ptr<Command>> const& commands)
 {
-    RunInfo state { 0, 0 };
 
-    auto commandsWithChange = commands;
-    commandsWithChange.at(0) = std::make_shared<JmpCommand>(commandsWithChange.at(0)->value());
+    for (auto index = 0U; index != commands.size(); ++index) {
+        auto commandsWithChange = commands;
+        commandsWithChange.at(index)
+            = std::make_shared<JmpCommand>(commandsWithChange.at(index)->value());
 
-    if (!isInfiniteLoop(commandsWithChange)) {
-        return state.value;
+        if (isInfiniteLoop(commandsWithChange)) {
+            continue;
+        }
+
+        RunInfo state { 0, 0 };
     }
-
-    return state.value;
+    return 0;
 }
