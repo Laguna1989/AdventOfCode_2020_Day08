@@ -1,7 +1,6 @@
 #include "value_calculation.hpp"
 #include <set>
 
-bool testForInfiniteLoop(std::vector<Command> vector1);
 int calculateValueAfterFirstLoop(std::vector<std::shared_ptr<Command>> const& commands)
 {
     RunInfo state { 0, 0 };
@@ -43,17 +42,30 @@ bool isInfiniteLoop(std::vector<std::shared_ptr<Command>> const& commands)
 
 int bruteForceSwap(std::vector<std::shared_ptr<Command>> const& commands)
 {
-
     for (auto index = 0U; index != commands.size(); ++index) {
         auto commandsWithChange = commands;
-        commandsWithChange.at(index)
-            = std::make_shared<JmpCommand>(commandsWithChange.at(index)->value());
+        commandsWithChange.at(index) = commandsWithChange.at(index)->switchCommand();
 
         if (isInfiniteLoop(commandsWithChange)) {
             continue;
         }
 
         RunInfo state { 0, 0 };
+        while (true) {
+            auto currentCommand = commandsWithChange.at(state.line);
+            state = currentCommand->execute(state);
+
+            if(state.line == commandsWithChange.size())
+            {
+                return state.value;
+            }
+
+            if(state.line > commandsWithChange.size())
+            {
+                break;
+            }
+        }
     }
+
     return 0;
 }

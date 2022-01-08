@@ -46,3 +46,11 @@ acc +6)";
 
     ASSERT_EQ(bruteForceSwap(commands), expectedValue);
 }
+
+TEST(BossMonsterTest, BossMonsterTestTwo)
+{
+    auto commands = parseCommands(bossMonsterInput);
+    auto expectedValue = 2304;
+
+    ASSERT_EQ(bruteForceSwap(commands), expectedValue);
+}
