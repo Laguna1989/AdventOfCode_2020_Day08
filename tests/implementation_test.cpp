@@ -52,3 +52,5 @@ TEST(ParserTest, ParseSingleLineJmpReturnsCorrectCommand)
 
     EXPECT_NE(nullptr, dynamic_cast<JmpCommand*>(command.get()));
 }
+
+TEST(ValueCalculation, IsInfiniteLoopReturnsCorrectValue) { ASSERT_TRUE(false); }
