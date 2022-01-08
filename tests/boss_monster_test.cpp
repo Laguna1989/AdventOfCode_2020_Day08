@@ -1,7 +1,7 @@
+#include "boss_monster_input.hpp"
 #include "parser.hpp"
 #include "value_calculation.hpp"
 #include <gtest/gtest.h>
-#include "boss_monster_input.hpp"
 
 TEST(BossMonsterTest, BossMonsterPreparation)
 {
@@ -24,7 +24,7 @@ acc +6)";
 TEST(BossMonsterTest, BossMonsterTestOne)
 {
     auto commands = parseCommands(bossMonsterInput);
-    auto expectedValue = 5;
+    auto expectedValue = 2051;
 
     ASSERT_EQ(calculateValueAfterFirstLoop(commands), expectedValue);
 }
